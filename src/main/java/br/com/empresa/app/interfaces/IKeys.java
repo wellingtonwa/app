@@ -3,5 +3,6 @@ package br.com.empresa.app.interfaces;
 public interface IKeys {
 
     String APP_METODO_NAO_IMPLEMENTADO = "app.metodo.nao.implementado";
+    String APP_SEGURANCA_USUARIO_SALVAR_EMAIL_JA_EM_USO = "app.seguranca.usuario.salvar.email.ja.em.uso";
 
 }

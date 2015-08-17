@@ -1,11 +1,13 @@
 package br.com.empresa.app.controllers;
 
+import java.util.ResourceBundle;
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
 import br.com.empresa.app.daos.AbstractDao;
 import br.com.empresa.app.exceptions.ControllerException;
@@ -14,8 +16,10 @@ import br.com.empresa.app.models.Persistivel;
 
 public abstract class AbstractController<T extends Persistivel> implements IController<T> {
 
-    protected Result result;
     protected AbstractDao<T> dao;
+    protected Result result;
+    protected ResourceBundle bundle;
+    protected Validator validator;
 
     @Override
     @Post
