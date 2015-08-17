@@ -1,0 +1,21 @@
+<div ng-show="loginForm.email.$error.required && loginForm.email.$dirty" class="alert alert-danger">
+	<strong>Atenção!</strong> O preenchimento do <strong>"E-mail"</strong> é obrigatório
+</div>
+
+<div ng-show="loginForm.senha.$error.required && loginForm.senha.$dirty" class="alert alert-danger">
+	<strong>Atenção!</strong> O preenchimento da <strong>"Senha"</strong> é obrigatorio
+</div>
+	
+<div class="jumbotron">
+		
+	<h2>{{subtitulo}}</h2>
+	
+	<form name="loginForm">
+		<input class="form-control" type="text" ng-model="segUsuario.email" name="email" placeholder="Informe Seu E-mail (exemplo@dominio.com)" ng-required="true" />
+		<input class="form-control" type="password" ng-model="segUsuario.senha" name="senha" placeholder="Informe Sua Senha" ng-required="true"/>
+	</form>
+	
+	<button class="btn btn-primary btn-block" ng-click="login(segUsuario)" ng-disabled="loginForm.$invalid">Entrar</button>
+	<a href="#/novoUsuario" class="btn btn-success btn-block">Criar uma conta</button>
+	
+</div>

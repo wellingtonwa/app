@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html>
-	
+<html ng-app="listaCompras">
+
 	<head>
 		<meta charset="UTF-8">
 		<title>App :: Lista de Compras</title>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
+		<script src="lib/angular/angular.js"></script>
+		<script src="lib/angular/angular-route.js"></script>
+		<script src="lib/angular/validate.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/loginController.js"></script>
+		<script src="js/controllers/novoUsuarioController.js"></script>
+		<script src="js/services/usuarioAPIService.js"></script>
+		<script src="js/configs/routeConfig.js"></script>
+		<script src="js/values/configValue.js"></script>
 	</head>
-	
-	<!-- Teste de deploy -->
-	
+
 	<body>
-		Em Desenvolvimento...
+		
+		<!-- Conteudo -->
+		<div ng-view></div>
+		
+		<!-- Rodapé -->
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container-fluid">
+				<div style="text-align:center" ng-include="'view/rodape.html'"></div>
+			</div>
+		</nav>
+		
 	</body>
-	
 </html>
