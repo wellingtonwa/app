@@ -16,6 +16,8 @@ import br.com.empresa.app.exceptions.ControllerException;
 import br.com.empresa.app.interfaces.IKeys;
 import br.com.empresa.app.models.seguranca.SegUsuario;
 import br.com.empresa.app.utils.Crypto;
+import br.com.empresa.app.utils.JWT;
+import br.com.empresa.app.wrappers.seguranca.SegUsuarioLoginWrapper;
 
 @Controller
 @Path("/seguranca/usuario")
@@ -68,8 +70,10 @@ public class SegUsuarioController extends AbstractController<SegUsuario> {
         validator.addIf(!isLoginValido, new SimpleMessage("login", msgLoginSenhaNaoConferem));
         validator.onErrorSendBadRequest();
 
-        this.result.use(Results.json()).withoutRoot().from(usuario).serialize();
+        String token = JWT.generateToken(usuario.getEmail());
+
+        SegUsuarioLoginWrapper wrapper = new SegUsuarioLoginWrapper(token, usuario);
+        this.result.use(Results.json()).withoutRoot().from(wrapper).include("usuario").serialize();
 
     }
-
 }
