@@ -1,7 +1,7 @@
 package br.com.empresa.app.interfaces;
 
-import br.com.empresa.app.exception.ControllerException;
-import br.com.empresa.app.model.Persistivel;
+import br.com.empresa.app.exceptions.ControllerException;
+import br.com.empresa.app.models.Persistivel;
 
 public interface IController<T extends Persistivel> extends ICrud<T, ControllerException> {
 

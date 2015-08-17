@@ -1,8 +1,8 @@
 package br.com.empresa.app.interfaces;
 
 import java.util.List;
-import br.com.empresa.app.exception.DataAccessObjectException;
-import br.com.empresa.app.model.Persistivel;
+import br.com.empresa.app.exceptions.DataAccessObjectException;
+import br.com.empresa.app.models.Persistivel;
 
 public interface IDataAccessObject<T extends Persistivel> extends ICrud<T, DataAccessObjectException> {
 

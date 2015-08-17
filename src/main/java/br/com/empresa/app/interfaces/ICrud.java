@@ -1,6 +1,6 @@
 package br.com.empresa.app.interfaces;
 
-import br.com.empresa.app.model.Persistivel;
+import br.com.empresa.app.models.Persistivel;
 
 public interface ICrud<T extends Persistivel, E extends RuntimeException> {
 
