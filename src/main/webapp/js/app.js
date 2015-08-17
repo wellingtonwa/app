@@ -1,1 +1,1 @@
-angular.module("listaCompras", ["ngRoute", "ui.validate"]);
+angular.module("listaCompras", ["ngRoute", "ui.validate", "LocalStorageModule"]);
