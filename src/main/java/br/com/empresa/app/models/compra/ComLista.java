@@ -6,16 +6,12 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import br.com.empresa.app.models.Auditavel;
 import br.com.empresa.app.models.seguranca.SegUsuario;
 
-@XmlRootElement
 @Entity
 @Table(name = "com_lista")
 public class ComLista extends Auditavel {
-
-    private static final long serialVersionUID = 1L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proprietario")

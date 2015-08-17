@@ -3,15 +3,11 @@ package br.com.empresa.app.models.seguranca;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import br.com.empresa.app.models.Persistivel;
 
-@XmlRootElement
 @Entity
 @Table(name = "seg_usuario")
 public class SegUsuario extends Persistivel {
-
-    private static final long serialVersionUID = 1L;
 
     @Column(name = "tx_nome_completo", length = 100)
     private String nomeCompleto;

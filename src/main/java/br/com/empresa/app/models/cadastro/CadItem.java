@@ -7,15 +7,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import br.com.empresa.app.models.Auditavel;
 
-@XmlRootElement
 @Entity
 @Table(name = "cad_item")
 public class CadItem extends Auditavel {
-
-    private static final long serialVersionUID = 1L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_unidade_medida")

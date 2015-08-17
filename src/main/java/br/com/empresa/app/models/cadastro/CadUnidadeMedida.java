@@ -3,15 +3,11 @@ package br.com.empresa.app.models.cadastro;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import br.com.empresa.app.models.Persistivel;
 
-@XmlRootElement
 @Entity
 @Table(name = "cad_unidade_medida")
 public class CadUnidadeMedida extends Persistivel {
-
-    private static final long serialVersionUID = 1L;
 
     @Column(name = "tx_descricao", length = 100)
     private String descricao;
