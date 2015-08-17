@@ -35,4 +35,18 @@ public class SegUsuarioDao extends AbstractDao<SegUsuario> {
         return retorno != null && retorno.getEmail().toUpperCase().equals(email.toUpperCase());
     }
 
+    public SegUsuario doLogin(SegUsuario objeto) {
+
+        StringBuilder hql = new StringBuilder("from SegUsuario u where 1 = 1 ");
+        hql.append("and upper(u.email) like :email ");
+        hql.append("and u.senha like :senha ");
+
+        Query query = session.createQuery(hql.toString());
+        query.setParameter("email", objeto.getEmail().toUpperCase());
+        query.setParameter("senha", objeto.getSenha());
+
+        return (SegUsuario) query.uniqueResult();
+
+    }
+
 }

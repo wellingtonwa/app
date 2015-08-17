@@ -9,12 +9,13 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.caelum.vraptor.view.Results;
 import br.com.empresa.app.controllers.AbstractController;
 import br.com.empresa.app.daos.seguranca.SegUsuarioDao;
 import br.com.empresa.app.exceptions.ControllerException;
 import br.com.empresa.app.interfaces.IKeys;
 import br.com.empresa.app.models.seguranca.SegUsuario;
-import com.auth0.jwt.internal.org.apache.commons.codec.digest.DigestUtils;
+import br.com.empresa.app.utils.Crypto;
 
 @Controller
 @Path("/seguranca/usuario")
@@ -47,8 +48,28 @@ public class SegUsuarioController extends AbstractController<SegUsuario> {
         validator.onErrorSendBadRequest();
 
         // Criptografando a senha para MD5
-        objeto.setSenha(DigestUtils.md5(objeto.getSenha()).toString());
+        objeto.setSenha(Crypto.md5(objeto.getSenha()));
 
         super.salvar(objeto);
     }
+
+    @Post
+    @Consumes(value = "application/json")
+    public void login(SegUsuario objeto) throws ControllerException {
+
+        // Criptografando a senha para MD5
+        objeto.setSenha(Crypto.md5(objeto.getSenha()));
+
+        SegUsuario usuario = ((SegUsuarioDao) this.dao).doLogin(objeto);
+
+        boolean isLoginValido = usuario != null;
+        String msgLoginSenhaNaoConferem = bundle.getString(IKeys.APP_SEGURANCA_USUARIO_LOGIN_EMAIL_SENHA_NAO_CONFEREM);
+
+        validator.addIf(!isLoginValido, new SimpleMessage("login", msgLoginSenhaNaoConferem));
+        validator.onErrorSendBadRequest();
+
+        this.result.use(Results.json()).withoutRoot().from(usuario).serialize();
+
+    }
+
 }
