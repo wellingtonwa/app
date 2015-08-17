@@ -8,12 +8,18 @@
 
 		<!-- DADOS CONEXAO -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		
+		<!-- AWS CONFIG -->
 		<property name="hibernate.connection.username">admin</property>
 		<property name="hibernate.connection.password">admintrier</property>
-		<property name="hibernate.connection.url">jdbc:mysql://serverdb-001.csbhbrpvsah7.us-east-1.rds.amazonaws.com:3306/app</property>
-
-		<!-- Local Desenv -->
-		<!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/app</property> -->
+		<property name="hibernate.connection.url">jdbc:mysql://serverdb-001.csbhbrpvsah7.us-east-1.rds.amazonaws.com:3306/app</property> 
+		
+		<!-- LOCAL CONFIG -->
+		<!-- 
+			<property name="hibernate.connection.username">root</property>
+			<property name="hibernate.connection.password">root</property>
+			<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/app</property>
+		-->
 
 		<!-- CONFIGURACAO -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
@@ -29,11 +35,11 @@
 		<property name="hibernate.c3p0.idle_test_period">3000</property>
 
 		<!-- MAPEAMENTOS -->
-		<mapping class="br.com.empresa.app.model.cadastro.CadItem" />
-		<mapping class="br.com.empresa.app.model.cadastro.CadUnidadeMedida" />
-		<mapping class="br.com.empresa.app.model.compra.ComLista" />
-		<mapping class="br.com.empresa.app.model.compra.ComListaItem" />
-		<mapping class="br.com.empresa.app.model.seguranca.SegUsuario" />
+		<mapping class="br.com.empresa.app.models.cadastro.CadItem" />
+		<mapping class="br.com.empresa.app.models.cadastro.CadUnidadeMedida" />
+		<mapping class="br.com.empresa.app.models.compra.ComLista" />
+		<mapping class="br.com.empresa.app.models.compra.ComListaItem" />
+		<mapping class="br.com.empresa.app.models.seguranca.SegUsuario" />
 
 	</session-factory>
 
