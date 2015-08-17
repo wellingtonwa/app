@@ -2,15 +2,13 @@ package br.com.empresa.app.daos;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.ResourceBundle;
-import javax.inject.Inject;
+import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import br.com.empresa.app.exceptions.DataAccessObjectException;
 import br.com.empresa.app.interfaces.IDataAccessObject;
-import br.com.empresa.app.interfaces.IKeys;
 import br.com.empresa.app.models.Persistivel;
 
 @SuppressWarnings("unchecked")
@@ -18,22 +16,22 @@ public abstract class AbstractDao<T extends Persistivel> implements IDataAccessO
 
     protected Session session;
 
-    @Inject
-    private ResourceBundle bundle;
-
+    @Transactional
     @Override
     public void salvar(T objeto) throws DataAccessObjectException {
-        throw new UnsupportedOperationException(bundle.getString(IKeys.APP_METODO_NAO_IMPLEMENTADO));
+        this.session.save(objeto);
     }
 
+    @Transactional
     @Override
     public void alterar(T objeto) throws DataAccessObjectException {
-        throw new UnsupportedOperationException(bundle.getString(IKeys.APP_METODO_NAO_IMPLEMENTADO));
+        this.session.update(objeto);
     }
 
+    @Transactional
     @Override
     public void excluir(T objeto) throws DataAccessObjectException {
-        throw new UnsupportedOperationException(bundle.getString(IKeys.APP_METODO_NAO_IMPLEMENTADO));
+        this.session.delete(objeto);
     }
 
     @Override
