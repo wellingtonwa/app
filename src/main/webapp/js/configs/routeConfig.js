@@ -1,5 +1,10 @@
 angular.module("listaCompras").config(function ($routeProvider) {
 	
+	$routeProvider.when("/", {
+		templateUrl: "view/main.html",
+		controller: "mainController"
+	});
+	
 	$routeProvider.when("/login", {
 		templateUrl: "view/login.html",
 		controller: "loginController"
@@ -10,6 +15,6 @@ angular.module("listaCompras").config(function ($routeProvider) {
 		controller: "novoUsuarioController"
 	});
 	
-	$routeProvider.otherwise({redirectTo: "/login"});
+	$routeProvider.otherwise({redirectTo: "/"});
 	
 });

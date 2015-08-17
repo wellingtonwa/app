@@ -4,9 +4,7 @@ angular.module("listaCompras").controller("novoUsuarioController", function ($sc
 	
 	$scope.cadastrarUsuario = function (usuario) {
 		
-		var segUsuarioJson = angular.toJson({objeto : new SegUsuario(usuario.nomeCompleto, usuario.email, usuario.senha)});
-		
-		usuariosAPI.saveUsuario(segUsuarioJson).success(function(data) {
+		usuariosAPI.saveUsuario(usuariosAPI.newSegUsuarioJson(usuario)).success(function(data) {
 			delete $scope.usuario;
 			$scope.cadastroForm.$setPristine();
 			$scope.mensagemSucesso = "Usuário cadastrado com sucesso!";
@@ -15,12 +13,6 @@ angular.module("listaCompras").controller("novoUsuarioController", function ($sc
 			$scope.mensagemErro = data.errors[0].message;
 		});
 		
-	};
-	
-	var SegUsuario = function(nomeCompleto, email, senha) {
-		this.nomeCompleto = nomeCompleto;
-		this.email = email;
-		this.senha = senha;
 	};
 	
 });
