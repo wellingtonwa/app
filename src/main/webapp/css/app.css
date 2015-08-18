@@ -47,3 +47,12 @@ body {
 .tdIcone {
 	padding: 8px 0px 8px 0px;
 }
+
+.textoADireita {
+	text-align: right;
+}
+
+.isComprado {
+	color: #c9c9c9;
+	text-decoration: line-through;
+}

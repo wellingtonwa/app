@@ -6,8 +6,13 @@ angular.module("listaCompras").factory("listaAPI", function ($http, config, usua
 		return $http.get(config.baseUrl + "/compra/lista/listarTodos/" + _usuarioLogado.id);
 	};
 	
+	var _carregaInformacoesLista = function(id) {
+		return $http.get(config.baseUrl + "/compra/lista/" + id + "/listar");
+	};
+	
 	return {
-		getListas: _getListas
+		getListas: _getListas,
+		carregaInformacoesLista : _carregaInformacoesLista,
 	};
 	
 });
