@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
@@ -37,6 +38,13 @@ public class ComListaItemController extends AbstractController<ComListaItem> {
     @PrecisaEstarLogado
     public void listarTodos(ComListaItem listaItem) throws ControllerException {
         this.result.use(Results.json()).withoutRoot().from(((ComListaItemDao) this.dao).listarTodos(listaItem)).recursive().serialize();
+    }
+
+    @Post("/excluirItensPorLista/{idComLista}")
+    @PrecisaEstarLogado
+    public void excluirItensPorLista(Long idComLista) throws ControllerException {
+        ((ComListaItemDao) this.dao).excluirItensPorLista(idComLista);
+        this.result.use(Results.json()).withoutRoot().from("sucesso").serialize();
     }
 
 }

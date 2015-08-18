@@ -41,7 +41,7 @@ public abstract class AbstractController<T extends Persistivel> implements ICont
     }
 
     @Override
-    @Delete
+    @Post //@Delete //FIXME Guilherme Virtuoso - Verificar erro de serializacao ao user o verbo delete
     @Consumes(value = "application/json")
     @PrecisaEstarLogado
     public void excluir(T objeto) throws ControllerException {

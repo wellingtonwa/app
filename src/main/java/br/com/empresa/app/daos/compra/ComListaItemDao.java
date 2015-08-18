@@ -3,6 +3,7 @@ package br.com.empresa.app.daos.compra;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import br.com.empresa.app.daos.AbstractDao;
@@ -33,6 +34,21 @@ public class ComListaItemDao extends AbstractDao<ComListaItem> {
         query.setParameter("id", comListaItem.getComLista().getId());
 
         return (List<ComListaItem>) query.list();
+
+    }
+
+    @Transactional
+    public void excluirItensPorLista(Long idComLista) throws DataAccessObjectException {
+
+        StringBuilder hql = new StringBuilder("delete from ComListaItem c where 1 = 1 ");
+        hql.append("and c.comLista.id = :id ");
+
+        Query query = session.createQuery(hql.toString());
+        query.setParameter("id", idComLista);
+
+        query.executeUpdate();
+
+        this.session.flush();
 
     }
 
