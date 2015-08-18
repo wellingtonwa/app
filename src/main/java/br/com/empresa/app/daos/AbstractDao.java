@@ -11,7 +11,7 @@ import br.com.empresa.app.exceptions.DataAccessObjectException;
 import br.com.empresa.app.interfaces.IDataAccessObject;
 import br.com.empresa.app.models.Persistivel;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractDao<T extends Persistivel> implements IDataAccessObject<T> {
 
     protected Session session;
@@ -37,9 +37,7 @@ public abstract class AbstractDao<T extends Persistivel> implements IDataAccessO
     @Override
     public T listar(T objeto) throws DataAccessObjectException {
 
-        Class<T> entidade = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
-        StringBuilder hql = new StringBuilder("from " + entidade.getName() + " e where 1 = 1 ");
+        StringBuilder hql = new StringBuilder("from " + getTypeClass().getName() + " e where 1 = 1 ");
         hql.append("and e.id = :id ");
 
         Query query = session.createQuery(hql.toString());
@@ -51,22 +49,23 @@ public abstract class AbstractDao<T extends Persistivel> implements IDataAccessO
 
     @Override
     public List<T> listarTodos() throws DataAccessObjectException {
-
-        Class<T> entidade = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        return session.createQuery("from " + entidade.getName()).list();
-
+        return session.createQuery("from " + getTypeClass().getName()).list();
     }
 
     @Override
     public List<T> listarTodosOrdenando(String columnName) throws DataAccessObjectException {
-
-        Class<T> entidade = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
-        Criteria criteria = session.createCriteria(entidade);
+        Criteria criteria = session.createCriteria(getTypeClass());
         criteria.addOrder(Order.asc(columnName));
-
         return (List<T>) criteria.list();
 
+    }
+
+    private Class<?> getTypeClass() {
+        Class clazz = this.getClass();
+        while (!AbstractDao.class.equals(clazz.getSuperclass())) {
+            clazz = clazz.getSuperclass();
+        }
+        return (Class<?>) ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
 }
