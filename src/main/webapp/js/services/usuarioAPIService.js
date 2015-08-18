@@ -1,4 +1,4 @@
-angular.module("listaCompras").factory("usuariosAPI", function ($http, config) {
+angular.module("listaCompras").factory("usuarioAPI", function ($http, config, localStorageService) {
 	
 	var SegUsuario = function(nomeCompleto, email, senha) {
 		this.nomeCompleto = nomeCompleto;
@@ -13,10 +13,26 @@ angular.module("listaCompras").factory("usuariosAPI", function ($http, config) {
 	var _saveUsuario = function (segUsuarioJson) {
 		return $http.post(config.baseUrl + "/seguranca/usuario/salvar", segUsuarioJson);
 	};
+	
+	var _usuarioLogado = function () {
+		return {id: localStorageService.get(config.storageUsuarioId), 
+			nomeCompleto: localStorageService.get(config.storageUsuarioNomeCompleto), 
+			email: localStorageService.get(config.storageUsuarioEmail),
+			token: localStorageService.get(config.storageTokenKey)};
+	};
+	
+	var _doLogout = function () {
+		localStorageService.remove(config.storageTokenKey);
+		localStorageService.remove(config.storageUsuarioId);
+		localStorageService.remove(config.storageUsuarioNomeCompleto);
+		localStorageService.remove(config.storageUsuarioEmail);
+	};
 
 	return {
 		newSegUsuarioJson: _newSegUsuarioJson,
-		saveUsuario: _saveUsuario
+		saveUsuario: _saveUsuario,
+		usuarioLogado : _usuarioLogado,
+		doLogout : _doLogout
 	};
 	
 });

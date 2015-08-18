@@ -1,28 +1,23 @@
-angular.module("listaCompras").controller("mainController", function($scope, $location, config, localStorageService) {
-
-	//-- INICIO - Verificando se o usuario possui permissao de acesso
-	
-	var _isLogado = false;
-	
-	if(localStorageService.isSupported) {
-		var _token = localStorageService.get(config.storageTokenKey);
-		_isLogado = _token != null;
-	}
-	
-	if(!_isLogado) {
-		$location.path("/login");
-	}
-	
-	//-- FIM - Verificando se o usuario possui permissao de acesso
+angular.module("listaCompras").controller("mainController", function($route, $scope, $location, config, usuarioAPI, listas) {
 	
 	$scope.subtitulo = "Lista de Compras";
+	$scope.usuario = usuarioAPI.usuarioLogado();
+	$scope.listaSelecionada = 0;
+		
+	//Verificando se o usuario possui permissao de acesso
+	if($scope.usuario.token == null) {
+		$location.path("/login");
+	}
+	
+	$scope.listas = listas.data;
 	
 	$scope.logout = function() {
-		localStorageService.remove(config.storageTokenKey);
-		localStorageService.remove(config.storageUsuarioId);
-		localStorageService.remove(config.storageUsuarioNomeCompleto);
-		localStorageService.remove(config.storageUsuarioEmail);
+		usuarioAPI.doLogout();
 		$location.path("/login");
+	};
+	
+	$scope.selecionarLista = function(id) {
+		$scope.listaSelecionada = id;
 	};
 
 });

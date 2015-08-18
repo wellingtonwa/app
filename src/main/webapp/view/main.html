@@ -1,7 +1,7 @@
 <div class="jumbotron listaPrincipal">
 
 	<ol class="breadcrumb">
-	  <li class="active"><strong>{{subtitulo}}</strong></li>
+	  <li class="active"><strong>{{subtitulo}} - {{usuario.nomeCompleto}}</strong></li>
 	</ol>
 	
 	<div class="row">
@@ -22,20 +22,18 @@
 						</div>
 					</form>
 					
+					<!-- Listas do Usuario -->
 					<div class="list-group">
-						<a href="#/" class="fontePequena list-group-item">Comprar Hoje</a>
-						<a href="#/" class="fontePequena list-group-item active">Supermercado</a>
-						<a href="#/" class="fontePequena list-group-item">Feira</a>
-						<a href="#/" class="fontePequena list-group-item">Farmácia</a>
-						<a href="#/" class="fontePequena list-group-item">Churras Empresa</a>
+						<a href="" ng-click="selecionarLista(lista.id)" ng-class="{' active ': listaSelecionada == lista.id}" class="fontePequena list-group-item" ng-repeat="lista in listas">{{lista.descricao}}</a>
 					</div>
+
 				</div>
 			</div>
 		</div>
 		
 		
 		<!-- Itens da Lista de Compras Selecionada -->
-		<div class="col-md-8">
+		<div ng-if="listaSelecionada > 0" class="col-md-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="container-fluid">
@@ -88,7 +86,7 @@
 	      				</thead>
 	      				<tbody>
 	      					<tr>
-	      						<th scope="row"><input type="checkbox"/></th>
+	      						<th scope="row"><input type="checkbox" ng-model="teste.ok"/></th>
 	      						<td>Leite</td>
 	      						<td>R$ 2,50</td>
 	          					<td>2</td>
@@ -112,6 +110,23 @@
 	        		
 	        	</div>
 	        	<div class="panel-footer">Total da Lista: R$ 8,00</div>
+	        </div>
+	      </div>
+	      
+	      <div ng-if="listaSelecionada == 0" class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="container-fluid">
+						<div class="row">
+							<div>
+								<strong>Nenhhuma lista selecionada</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<h4>Selecione uma lista ao lado para exibir seus itens</h4>
+	        	</div>
 	        </div>
 	      </div>
 	

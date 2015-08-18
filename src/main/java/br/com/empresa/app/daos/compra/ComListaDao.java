@@ -1,9 +1,12 @@
 package br.com.empresa.app.daos.compra;
 
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import br.com.empresa.app.daos.AbstractDao;
+import br.com.empresa.app.exceptions.DataAccessObjectException;
 import br.com.empresa.app.models.compra.ComLista;
 
 @RequestScoped
@@ -19,6 +22,18 @@ public class ComListaDao extends AbstractDao<ComLista> {
     @Inject
     public ComListaDao(Session session) {
         this.session = session;
+    }
+
+    public List<ComLista> listarTodos(ComLista lista) throws DataAccessObjectException {
+
+        StringBuilder hql = new StringBuilder("from ComLista l where 1 = 1 ");
+        hql.append("and l.segUsuarioProprietario.id = :id ");
+
+        Query query = session.createQuery(hql.toString());
+        query.setParameter("id", lista.getSegUsuarioProprietario().getId());
+
+        return (List<ComLista>) query.list();
+
     }
 
 }

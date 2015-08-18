@@ -1,10 +1,10 @@
-angular.module("listaCompras").controller("loginController", function($scope, $location, config, localStorageService, loginAPI, usuariosAPI) {
-
+angular.module("listaCompras").controller("loginController", function($route, $scope, $location, config, localStorageService, loginAPI, usuarioAPI) {
+	
 	$scope.subtitulo = "Acessar Lista de Compras";
 
 	$scope.login = function (usuario) {
 		
-		loginAPI.login(usuariosAPI.newSegUsuarioJson(usuario)).success(function(data) {
+		loginAPI.login(usuarioAPI.newSegUsuarioJson(usuario)).success(function(data) {
 			
 			if(localStorageService.isSupported) {
 				

@@ -2,7 +2,12 @@ angular.module("listaCompras").config(function ($routeProvider) {
 	
 	$routeProvider.when("/", {
 		templateUrl: "view/main.html",
-		controller: "mainController"
+		controller: "mainController",
+		resolve: {
+			listas: function (listaAPI) {
+				return listaAPI.getListas();
+			}
+		}
 	});
 	
 	$routeProvider.when("/login", {
