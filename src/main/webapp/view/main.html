@@ -1,7 +1,122 @@
-<div class="jumbotron">
-		
-	<h2>{{subtitulo}}</h2>
+<div class="jumbotron listaPrincipal">
+
+	<ol class="breadcrumb">
+	  <li class="active"><strong>{{subtitulo}}</strong></li>
+	</ol>
 	
-	<button class="btn btn-primary btn-block" ng-click="logout()">Sair</button>
+	<div class="row">
+	
+		<!--  Listas de Compras -->
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Listas</div>
+				<div class="panel-body">
+				
+					<!-- Adicionar Lista -->
+					<form class="form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-main" id="exampleInputName2" placeholder="Lista" size="15">
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-default form-control-main-btn-adicao"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						</div>
+					</form>
+					
+					<div class="list-group">
+						<a href="#/" class="fontePequena list-group-item">Comprar Hoje</a>
+						<a href="#/" class="fontePequena list-group-item active">Supermercado</a>
+						<a href="#/" class="fontePequena list-group-item">Feira</a>
+						<a href="#/" class="fontePequena list-group-item">Farmácia</a>
+						<a href="#/" class="fontePequena list-group-item">Churras Empresa</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- Itens da Lista de Compras Selecionada -->
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="container-fluid">
+						<div class="row">
+							<div>
+								<strong>Supermercado</strong>&nbsp;&nbsp;
+								<button class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+								<button class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+				
+					<!-- Adicionar Produto -->
+					<form class="form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-main" id="exampleInputName2" placeholder="Produto" size="18">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control form-control-main" id="exampleInputEmail2" placeholder="Preço (R$)" size="8">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control form-control-main" id="exampleInputName2" placeholder="Qtd" size="2">
+						</div>
+						<div class="form-group">
+							<select class="form-control form-control-main">
+								<option>Un</option>
+								<option>Kg</option>
+								<option>g</option>
+								<option>L</option>
+								<option>dz</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-default form-control-main-btn-adicao"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+					</form>
+					
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></th>
+	          					<th>Produto</th>
+	          					<th>Preço</th>
+	          					<th>Qtd</th>
+	          					<th>Un</th>
+	          					<th>Total</th>
+	          					<th></th>
+	          					<th></th>
+	        				</tr>
+	      				</thead>
+	      				<tbody>
+	      					<tr>
+	      						<th scope="row"><input type="checkbox"/></th>
+	      						<td>Leite</td>
+	      						<td>R$ 2,50</td>
+	          					<td>2</td>
+	          					<td>L</td>
+	          					<td>R$ 5,00</td>
+	          					<td style="padding: 8px 0px 8px 0px;"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+	          					<td style="padding: 8px 0px 8px 0px;"><button class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+	        				</tr>
+	        				<tr>
+	      						<th scope="row"><input type="checkbox"/></th>
+	      						<td>Pão</td>
+	      						<td>R$ 0,30</td>
+	          					<td>10</td>
+	          					<td>Un</td>
+	          					<td>R$ 3,00</td>
+	          					<td style="padding: 8px 0px 8px 0px;"><button class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+	          					<td style="padding: 8px 0px 8px 0px;"><button class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+	        				</tr>
+	        			</tbody>
+	        		</table>
+	        		
+	        	</div>
+	        	<div class="panel-footer">Total da Lista: R$ 8,00</div>
+	        </div>
+	      </div>
+	
+	</div>
+	
+	<button class="btn btn-warning btn-block" ng-click="logout()">Sair</button>
 	
 </div>

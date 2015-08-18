@@ -19,8 +19,10 @@
 </div>
 	
 <div class="jumbotron">
-		
-	<h2>{{subtitulo}}</h2>
+
+	<ol class="breadcrumb">
+	  <li class="active"><strong>{{subtitulo}}</strong></li>
+	</ol>
 	
 	<div ng-show="mensagemErro.length > 0" class="alert alert-danger">
 		{{mensagemErro}}

@@ -15,6 +15,8 @@ angular.module("listaCompras").controller("loginController", function($scope, $l
 				
 				delete $scope.usuario;
 				$scope.loginForm.$setPristine();
+				$scope.mensagemErro = "";
+				
 				$location.path("/");
 				
 			} else {

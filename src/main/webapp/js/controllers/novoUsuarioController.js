@@ -7,8 +7,11 @@ angular.module("listaCompras").controller("novoUsuarioController", function ($sc
 		usuariosAPI.saveUsuario(usuariosAPI.newSegUsuarioJson(usuario)).success(function(data) {
 			delete $scope.usuario;
 			$scope.cadastroForm.$setPristine();
-			$scope.mensagemSucesso = "Usuário cadastrado com sucesso!";
 			$scope.goToFormLogin = true;
+			
+			$scope.mensagemErro = "";
+			$scope.mensagemSucesso = "Usuário cadastrado com sucesso!";
+			
 		}).error(function(data) {
 			$scope.mensagemErro = data.errors[0].message;
 		});

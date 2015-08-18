@@ -2,22 +2,48 @@ body {
 	padding-bottom: 70px; 
 }
 
-h2 {
-	margin-bottom: 30px;
+.fontePequena {
+	font-size: 15px;
+}
+
+.list-group-item {
+	padding: 0px;
+}
+
+.panel-heading {
+	padding: 0px;
 }
 
 .jumbotron {
-	width: 600px;
+	width: 400px;
 	text-align: center;
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 15px
+}
+
+.listaPrincipal {
+	width: 800px;
 }
 
 .table {
-	margin-top: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .form-control {
 	margin-bottom: 5px;
+}
+
+.form-control-main {
+	margin-bottom: 0px;
+}
+
+.form-control-main-btn-adicao {
+	height: 34px;
+}
+
+.tdIcone {
+	padding: 8px 0px 8px 0px;
 }
