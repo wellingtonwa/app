@@ -6,8 +6,8 @@ angular.module("listaCompras").factory("usuarioAPI", function ($http, config, lo
 		this.senha = senha;
 	};
 	
-	var _newSegUsuarioJson = function (usuario) {
-		return angular.toJson({objeto : new SegUsuario(usuario.nomeCompleto, usuario.email, usuario.senha)});
+	var _newSegUsuarioJson = function (json) {
+		return angular.toJson({objeto : new SegUsuario(json.nomeCompleto, json.email, json.senha)});
 	}
 	
 	var _saveUsuario = function (segUsuarioJson) {

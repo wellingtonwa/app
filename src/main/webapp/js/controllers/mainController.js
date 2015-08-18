@@ -31,6 +31,19 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		});
 	});
 	
+	$scope.saveLista = function(novaLista) {
+		
+		listaAPI.saveLista(listaAPI.newComListaJson(novaLista)).success(function(data) {
+			delete $scope.novaLista;
+			$scope.formNovaLista.$setPristine();
+			$scope.mensagemErro = "";
+			carregarListas();
+		}).error(function(data) {
+			$scope.mensagemErro = data.errors[0].message;
+		});
+		
+	};
+	
 	var carregaItensDaLista = function(id) {
 		listaItemAPI.carregaItensDaLista(id).success(function(data) {
 			$scope.listaSelecionadaItens = data;
