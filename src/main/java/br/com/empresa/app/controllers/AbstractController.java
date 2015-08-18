@@ -9,6 +9,7 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
+import br.com.empresa.app.annotations.PrecisaEstarLogado;
 import br.com.empresa.app.daos.AbstractDao;
 import br.com.empresa.app.exceptions.ControllerException;
 import br.com.empresa.app.interfaces.IController;
@@ -24,6 +25,7 @@ public abstract class AbstractController<T extends Persistivel> implements ICont
     @Override
     @Post
     @Consumes(value = "application/json")
+    @PrecisaEstarLogado
     public void salvar(T objeto) throws ControllerException {
         this.dao.salvar(objeto);
         this.result.use(Results.json()).withoutRoot().from(objeto).serialize();
@@ -32,6 +34,7 @@ public abstract class AbstractController<T extends Persistivel> implements ICont
     @Override
     @Put
     @Consumes(value = "application/json")
+    @PrecisaEstarLogado
     public void alterar(T objeto) throws ControllerException {
         this.dao.alterar(objeto);
         this.result.use(Results.json()).withoutRoot().from(objeto).serialize();
@@ -40,6 +43,7 @@ public abstract class AbstractController<T extends Persistivel> implements ICont
     @Override
     @Delete
     @Consumes(value = "application/json")
+    @PrecisaEstarLogado
     public void excluir(T objeto) throws ControllerException {
         this.dao.excluir(objeto);
         this.result.use(Results.json()).withoutRoot().from(objeto).serialize();
@@ -48,18 +52,21 @@ public abstract class AbstractController<T extends Persistivel> implements ICont
 
     @Override
     @Get("/{objeto.id}/listar")
+    @PrecisaEstarLogado
     public void listar(T objeto) throws ControllerException {
         this.result.use(Results.json()).withoutRoot().from(this.dao.listar(objeto)).serialize();
     }
 
     @Override
     @Get("/listarTodos")
+    @PrecisaEstarLogado
     public void listarTodos() throws ControllerException {
         this.result.use(Results.json()).withoutRoot().from(this.dao.listarTodos()).serialize();
     }
 
     @Override
     @Get("/listarTodosOrdenando/{columnName}")
+    @PrecisaEstarLogado
     public void listarTodosOrdenando(String columnName) throws ControllerException {
         this.result.use(Results.json()).withoutRoot().from(this.dao.listarTodosOrdenando(columnName)).serialize();
     }

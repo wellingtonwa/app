@@ -1,4 +1,4 @@
-angular.module("listaCompras").controller("loginController", function($scope, $http, $location, config, localStorageService, loginAPI, usuariosAPI) {
+angular.module("listaCompras").controller("loginController", function($scope, $location, config, localStorageService, loginAPI, usuariosAPI) {
 
 	$scope.subtitulo = "Acessar Lista de Compras";
 
