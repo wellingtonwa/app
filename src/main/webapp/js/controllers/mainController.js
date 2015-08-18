@@ -1,17 +1,17 @@
-angular.module("listaCompras").controller("mainController", function($route, $scope, $location, config, listas, usuarioAPI, listaAPI, listaItemAPI) {
+angular.module("listaCompras").controller("mainController", function($route, $scope, $location, config, usuarioAPI, listaAPI, listaItemAPI) {
+	
+	//Verificando se o usuario possui permissao de acesso
+	$scope.usuario = usuarioAPI.usuarioLogado();
+	if($scope.usuario.token === undefined || $scope.usuario.token == null) {
+		$location.path("/login");
+	}
 	
 	$scope.subtitulo = "Lista de Compras";
-	$scope.usuario = usuarioAPI.usuarioLogado();
-	$scope.listas = listas.data;
 	$scope.listaSelecionada = 0;
+	$scope.listas = [];
 	$scope.listaSelecionadaItens = [];
 	$scope.valorTotalLista = 0.00;
 	$scope.modoEdicaoDescricaoLista = false;
-		
-	//Verificando se o usuario possui permissao de acesso
-	if($scope.usuario.token == null) {
-		$location.path("/login");
-	}
 	
 	$scope.logout = function() {
 		usuarioAPI.doLogout();
@@ -100,5 +100,7 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 			$scope.listas = data;
 		});
 	};
+	
+	carregarListas();
 
 });

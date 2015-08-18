@@ -12,7 +12,10 @@ angular.module("listaCompras").factory("listaAPI", function ($http, config, usua
 	}
 	
 	var _getListas = function() {
-		return $http.get(config.baseUrl + "/compra/lista/listarTodos/" + usuarioAPI.usuarioLogado().id);
+		
+		var idUsuario = usuarioAPI.usuarioLogado().id;
+		
+		return $http.get(config.baseUrl + "/compra/lista/listarTodos/" + (idUsuario === undefined || idUsuario == null ? 0 : idUsuario));
 	};
 	
 	var _carregaInformacoesLista = function(id) {
