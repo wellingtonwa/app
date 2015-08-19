@@ -1,4 +1,4 @@
-angular.module("listaCompras", ["ngRoute", "ui.validate", "LocalStorageModule"]);
+angular.module("listaCompras", ["ngRoute", "ui.validate", "ng-currency", "LocalStorageModule"]);
 
 angular.module("listaCompras").run(function($rootScope, $templateCache) {
 	

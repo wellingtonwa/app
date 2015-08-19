@@ -1,5 +1,5 @@
-angular.module("listaCompras").controller("mainController", function($route, $scope, $location, config, usuarioAPI, listaAPI, listaItemAPI) {
-	
+angular.module("listaCompras").controller("mainController", function($route, $scope, $location, config, usuarioAPI, listaAPI, listaItemAPI, itemAPI, unidadeMedidaAPI) {
+
 	//Verificando se o usuario possui permissao de acesso
 	$scope.usuario = usuarioAPI.usuarioLogado();
 	if($scope.usuario.token === undefined || $scope.usuario.token == null) {
@@ -12,6 +12,7 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 	$scope.listaSelecionadaItens = [];
 	$scope.valorTotalLista = 0.00;
 	$scope.modoEdicaoDescricaoLista = false;
+	$scope.unidadesMedidas = [];
 	
 	$scope.logout = function() {
 		usuarioAPI.doLogout();
@@ -82,6 +83,23 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 			});
 		}
 	};
+	
+	$scope.adicionarItemNaLista = function(listaSelecionada, newComListaItem) {
+		itemAPI.criarItem(itemAPI.newCadItemJson(newComListaItem.cadItem)).success(function(data){
+			newComListaItem.cadItem = {id:data.id};
+			newComListaItem.comLista = {id:listaSelecionada};
+			listaItemAPI.criarItemLista(listaItemAPI.newComListaItem(newComListaItem)).success(function(data){
+				delete $scope.newComListaItem;
+				carregaItensDaLista(listaSelecionada);
+				$scope.mensagemErro = "";
+			}).error(function(data){
+				$scope.mensagemErro = data.errors[0].message;
+			});
+			
+		}).error(function(data){
+			$scope.mensagemErro = data.errors[0].message;
+		});
+	};
 			
 	var carregaItensDaLista = function(id) {
 		listaItemAPI.carregaItensDaLista(id).success(function(data) {
@@ -101,6 +119,13 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		});
 	};
 	
+	var carregarUnidadesMedida = function() {
+		unidadeMedidaAPI.getUnidadesMedida().success(function(data) {
+			$scope.unidadesMedidas = data;
+		});
+	};
+	
 	carregarListas();
+	carregarUnidadesMedida();
 
 });

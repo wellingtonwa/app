@@ -1,5 +1,5 @@
 <div class="jumbotron listaPrincipal">
-
+	
 	<ol class="breadcrumb">
 	  <li class="active"><strong>{{subtitulo}} - {{usuario.nomeCompleto}}</strong></li>
 	</ol>
@@ -9,14 +9,13 @@
 	</div>
 	
 	<div class="row">
-	
-		<!--  Listas de Compras -->
+		<!--  LISTA DE COMPRAS -->
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">Listas</div>
 				<div class="panel-body">
 				
-					<!-- Adicionar Lista -->
+					<!-- ADICIONAR LISTA -->
 					<form class="form-inline" name="formNovaLista">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-main" ng-model="novaLista.descricao" ng-required="true" placeholder="Crie uma Lista" size="15">
@@ -26,7 +25,7 @@
 						</div>
 					</form>
 					
-					<!-- Listas do Usuario -->
+					<!-- LISTAS DO USUARIO -->
 					<div class="list-group">
 						<a href="" ng-click="selecionarLista(lista.id)" ng-class="{' active ': listaSelecionada == lista.id}" class="fontePequena list-group-item" ng-repeat="lista in listas">{{lista.descricao}}</a>
 					</div>
@@ -36,11 +35,12 @@
 		</div>
 		
 		
-		<!-- Itens da Lista de Compras Selecionada -->
+		<!-- ITENS DA LISTA DE COMPRAS-->
 		<div ng-if="listaSelecionada > 0" class="col-md-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 				
+					<!-- EDICAO DA LISTA -->
 					<div ng-if="modoEdicaoDescricaoLista == true">
 						<form class="form-inline" name="formEditarLista">
 							<div class="form-group">
@@ -51,6 +51,7 @@
 						</form>
 					</div>
 				
+					<!-- TOOLBAR DA LISTA -->
 					<div class="container-fluid" ng-if="modoEdicaoDescricaoLista === undefined || modoEdicaoDescricaoLista == false">
 						<div class="row">
 							<div>
@@ -61,29 +62,27 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- LISTAGEM DE ITENS -->
 				<div class="panel-body">
 				
-					<!-- Adicionar Produto -->
-					<form class="form-inline">
+					<!-- ADICIONAR PRODUTO -->
+					<form class="form-inline" name="formNovaListaItem">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-main" id="exampleInputName2" placeholder="Adicione os Produtos" size="18">
+							<input type="text" class="form-control form-control-main" ng-model="newComListaItem.cadItem.descricao" placeholder="Informe o produto..." size="16" ng-required="true">
 						</div>
 						<div class="form-group">
-							<input type="email" class="form-control form-control-main" id="exampleInputEmail2" placeholder="Preço (R$)" size="8">
+							<input type="text" class="form-control form-control-main" ng-model="newComListaItem.cadItem.valor" placeholder="Preço" size="6" ng-currency />
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control form-control-main" id="exampleInputName2" placeholder="Qtd" size="2">
+							<input type="text" class="form-control form-control-main" ng-model="newComListaItem.quantidade" placeholder="Qtd" size="2" ng-required="true" nks-only-number decimal-upto="4" allow-negative="false" />
 						</div>
 						<div class="form-group">
-							<select class="form-control form-control-main">
-								<option>Un</option>
-								<option>Kg</option>
-								<option>g</option>
-								<option>L</option>
-								<option>dz</option>
+							<select class="form-control form-control-main" ng-model="newComListaItem.cadItem.cadUnidadeMedida" ng-options="unidadeMedida.simbolo for unidadeMedida in unidadesMedidas" ng-required="true">
+								<option value="">Med.</option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-default form-control-main-btn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						<button type="submit" class="btn btn-default form-control-main-btn" ng-click="adicionarItemNaLista(listaSelecionada, newComListaItem)" ng-disabled="formNovaListaItem.$invalid"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 					</form>
 					
 					<table class="table table-striped">
@@ -102,7 +101,7 @@
 	        			
 	        			<tbody ng-if="listaSelecionadaItens.length > 0">
 	      					<tr ng-repeat="item in listaSelecionadaItens" ng-class="{'isComprado' : item.isComprado == true }">
-	      						<th scope="row"><input type="checkbox" ng-model="item.isComprado"/></th>
+	      						<th scope="row"><input type="checkbox" ng-model="item.isComprado" ng-click="setaBooleanComprado(item)"/></th>
 	      						<td>{{item.cadItem.descricao}}</td>
 	      						<td>{{item.cadItem.valor  | currency}}</td>
 	          					<td>{{item.quantidade}}</td>
