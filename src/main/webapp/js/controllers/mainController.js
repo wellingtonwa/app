@@ -84,13 +84,13 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		}
 	};
 	
-	$scope.adicionarItemNaLista = function(listaSelecionada, newComListaItem) {
+	$scope.adicionarItemNaLista = function(newComListaItem) {
 		itemAPI.criarItem(itemAPI.newCadItemJson(newComListaItem.cadItem)).success(function(data){
 			newComListaItem.cadItem = {id:data.id};
-			newComListaItem.comLista = {id:listaSelecionada};
+			newComListaItem.comLista = {id:$scope.listaSelecionada};
 			listaItemAPI.criarItemLista(listaItemAPI.newComListaItem(newComListaItem)).success(function(data){
 				delete $scope.newComListaItem;
-				carregaItensDaLista(listaSelecionada);
+				carregaItensDaLista($scope.listaSelecionada);
 				$scope.mensagemErro = "";
 			}).error(function(data){
 				$scope.mensagemErro = data.errors[0].message;
@@ -99,6 +99,27 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		}).error(function(data){
 			$scope.mensagemErro = data.errors[0].message;
 		});
+	};
+	
+	$scope.alterarItemLista = function(itemLista) {
+		listaItemAPI.alterarItemLista(itemLista).success(function(data){
+			$scope.mensagemErro = "";
+			carregaItensDaLista($scope.listaSelecionada);
+		}).error(function(data){
+			$scope.mensagemErro = data.errors[0].message;
+		});
+	};
+	
+	$scope.excluirItemLista = function(itemLista) {
+		
+		if (confirm("Confirma a exclusão do item \"" + itemLista.cadItem.descricao + "\" ? \nEsta operação não pode ser desfeita")) {
+			listaItemAPI.excluirItemLista(itemLista).success(function(data){
+				$scope.mensagemErro = "";
+				carregaItensDaLista($scope.listaSelecionada);
+			}).error(function(data){
+				$scope.mensagemErro = data.errors[0].message;
+			});
+		}
 	};
 			
 	var carregaItensDaLista = function(id) {
