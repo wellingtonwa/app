@@ -12,6 +12,7 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 	$scope.listaSelecionadaItens = [];
 	$scope.valorTotalLista = 0.00;
 	$scope.modoEdicaoDescricaoLista = false;
+	$scope.itemListaParaEdicao = [];
 	$scope.unidadesMedidas = [];
 	
 	$scope.logout = function() {
@@ -57,8 +58,8 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		$scope.selecionarLista(id);
 	};
 	
-	$scope.editarLista = function(lista) {
-		listaAPI.editarLista(listaAPI.newComListaJson(lista)).success(function(data) {
+	$scope.alterarLista = function(lista) {
+		listaAPI.alterarLista(listaAPI.newComListaJson(lista)).success(function(data) {
 			carregarListas();
 			$scope.selecionarLista(data.id);
 			$scope.mensagemErro = "";
@@ -101,10 +102,29 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 		});
 	};
 	
-	$scope.alterarItemLista = function(itemLista) {
+	$scope.alterarIsComprado = function(itemLista) {
 		listaItemAPI.alterarItemLista(itemLista).success(function(data){
 			$scope.mensagemErro = "";
 			carregaItensDaLista($scope.listaSelecionada);
+		}).error(function(data){
+			$scope.mensagemErro = data.errors[0].message;
+		});
+	};
+	
+	$scope.alterarItemLista = function(itemLista) {
+		
+		if(itemLista.cadItem.valor === undefined || itemLista.cadItem.valor == null || isNaN(itemLista.cadItem.valor)) {
+			itemLista.cadItem.valor = 0;
+		}
+		
+		itemAPI.alterarItem(itemLista.cadItem).success(function(data){
+			listaItemAPI.alterarItemLista(itemLista).success(function(data){
+				$scope.mensagemErro = "";
+				$scope.itemListaParaEdicao = [];
+				carregaItensDaLista($scope.listaSelecionada);
+			}).error(function(data){
+				$scope.mensagemErro = data.errors[0].message;
+			});
 		}).error(function(data){
 			$scope.mensagemErro = data.errors[0].message;
 		});
@@ -120,6 +140,15 @@ angular.module("listaCompras").controller("mainController", function($route, $sc
 				$scope.mensagemErro = data.errors[0].message;
 			});
 		}
+	};
+	
+	$scope.habilitarEdicaoItemLista = function(itemLista) {
+		$scope.itemListaParaEdicao = itemLista;
+	};
+	
+	$scope.cancelarEdicaoItemLista = function() {
+		$scope.itemListaParaEdicao = [];
+		carregaItensDaLista($scope.listaSelecionada);
 	};
 			
 	var carregaItensDaLista = function(id) {

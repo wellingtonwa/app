@@ -1,12 +1,18 @@
 angular.module("listaCompras").factory("itemAPI", function ($http, config, usuarioAPI) {
 	
 	var CadItem = function(id, descricao, valor, cadUnidadeMedida, SegUsuarioProprietario, UltimoUsuario) {
+		
+		if(valor === undefined || valor == null || isNaN(valor)) {
+			valor = 0;
+		}
+		
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.cadUnidadeMedida = cadUnidadeMedida;
 		this.segUsuarioProprietario = SegUsuarioProprietario;
 		this.ultimoUsuario = UltimoUsuario;
+		
 	};
 	
 	var _newCadItemJson = function(json) {
@@ -17,9 +23,14 @@ angular.module("listaCompras").factory("itemAPI", function ($http, config, usuar
 		return $http.post(config.baseUrl + "/cadastro/item/salvar", itemJson);
 	};
 	
+	var _alterarItem = function(itemJson) {
+		return $http.put(config.baseUrl + "/cadastro/item/alterar", itemJson);
+	};
+	
 	return {
 		newCadItemJson : _newCadItemJson,
-		criarItem: _criarItem
+		criarItem: _criarItem,
+		alterarItem: _alterarItem
 	};
 	
 });

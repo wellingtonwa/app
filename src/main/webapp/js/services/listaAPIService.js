@@ -26,7 +26,7 @@ angular.module("listaCompras").factory("listaAPI", function ($http, config, usua
 		return $http.post(config.baseUrl + "/compra/lista/salvar", listaJson);
 	};
 	
-	var _editarLista = function (listaJson) {
+	var _alterarLista = function (listaJson) {
 		return $http.put(config.baseUrl + "/compra/lista/alterar", listaJson);
 	}
 	
@@ -39,7 +39,7 @@ angular.module("listaCompras").factory("listaAPI", function ($http, config, usua
 		getListas: _getListas,
 		carregaInformacoesLista : _carregaInformacoesLista,
 		criarLista : _criarLista,
-		editarLista : _editarLista,
+		alterarLista : _alterarLista,
 		excluirLista : _excluirLista
 	};
 	
